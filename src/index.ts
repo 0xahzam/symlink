@@ -26,13 +26,15 @@ app.get("/blinks", async (c) => {
 
 app.post("/deposit", async (c) => {
   try {
-    const { account, amount } = await c.req.json();
+    const amount: string = c.req.query("amount") as string;
+
+    const { account } = await c.req.json();
 
     if (account === undefined) {
       console.log(await c.req.json());
       return c.json({ error: "Missing required parameters" }, 400);
     }
-    const depositAmount = amount !== undefined ? amount : 1;
+    const depositAmount = amount !== undefined ? parseFloat(amount) : 1;
 
     const basket = "5GPvpZ9Jga9JoZ5eVQms9hQARwexmCjuqDaTxF6LMdsF";
     const transaction = await depositToSymmetryBasket(

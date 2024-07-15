@@ -8,25 +8,25 @@ export const getDepositAction = (): ActionGetResponse => {
   const description =
     "Beyond LST is a basket that contains top performing validator LSTs with highest yield";
   const disabled = false;
-  const amountQuery = "amount";
+  const amountQuery = "depositAmount";
 
   const links: ActionGetResponse["links"] = {
     actions: [
       {
         label: "$10",
-        href: `/deposit?${amountQuery}=10`,
+        href: `/deposit?amount=10`,
       },
       {
         label: "$100",
-        href: `/deposit?${amountQuery}=100`,
+        href: `/deposit?amount=100`,
       },
       {
         label: "$1,000",
-        href: `/deposit?${amountQuery}=1000`,
+        href: `/deposit?amount=1000`,
       },
       {
         label: "Deposit",
-        href: `/deposit?${amountQuery}={${amountQuery}}`,
+        href: `/deposit?amount={${amountQuery}}`,
         parameters: [
           {
             name: amountQuery,
