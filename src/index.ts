@@ -43,7 +43,7 @@ app.post("/deposit", async (c) => {
     );
 
     if (transaction === null) {
-      return c.json({ error: "Failed to generate transaction" }, 200);
+      return c.json({ error: "Failed to generate transaction" }, 500);
     }
 
     return c.json({ transaction });
