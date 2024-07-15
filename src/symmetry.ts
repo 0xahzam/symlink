@@ -1,6 +1,10 @@
 import { PublicKey } from "@solana/web3.js";
-import { SymmetryTxn } from "./types";
 import { Hono } from "hono";
+
+interface SymmetryTxn {
+  success: boolean;
+  transaction: string;
+}
 
 async function depositToSymmetryBasket(
   publicKeyString: string,

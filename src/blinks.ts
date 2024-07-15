@@ -1,5 +1,5 @@
+import { ActionGetResponse } from "@solana/actions";
 import { Hono } from "hono";
-import { ActionGetResponse } from "./types";
 
 const getDepositAction = (): ActionGetResponse => {
   const title = "Deposit to Symmetry Basket";
