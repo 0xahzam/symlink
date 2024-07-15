@@ -5,8 +5,9 @@ import { getDepositAction } from "./blinks";
 import { depositToSymmetryBasket } from "./symmetry";
 
 const app = new Hono();
-app.use("*", cors());
 app.use(logger());
+
+app.use(cors({ origin: "*" }));
 
 app.get("/", (c) => {
   return c.text("gm!");
@@ -24,18 +25,25 @@ app.get("/blinks", async (c) => {
 
 app.post("/deposit", async (c) => {
   try {
-    const { sender, amount } = await c.req.json();
+    const { account, amount } = await c.req.json();
 
     const basket = "4RofqKG4d6jfUD2HjtWb2F9UkLJvJ7P3kFmyuhX7H88d";
 
-    if (!sender || !basket || amount === undefined) {
+    if (account === undefined) {
+      console.log(await c.req.json());
       return c.json({ error: "Missing required parameters" }, 400);
     }
 
-    const transaction = await depositToSymmetryBasket(sender, basket, amount);
+    const depositAmount = amount !== undefined ? amount : 1;
+
+    const transaction = await depositToSymmetryBasket(
+      account,
+      basket,
+      depositAmount
+    );
 
     if (transaction === null) {
-      return c.json({ error: "Failed to generate transaction" }, 500);
+      return c.json({ error: "Failed to generate transaction" }, 200);
     }
 
     return c.json({ transaction });

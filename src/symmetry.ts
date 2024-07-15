@@ -12,6 +12,13 @@ export async function depositToSymmetryBasket(
 ): Promise<string | null> {
   try {
     const publicKey = new PublicKey(publicKeyString);
+    const onCurve = PublicKey.isOnCurve(publicKey);
+
+    if (!onCurve) {
+      console.error("Public key is invalid");
+      return null;
+    }
+
     const depositParameters = {
       user: publicKey.toBase58(),
       basket: basket,
@@ -25,7 +32,8 @@ export async function depositToSymmetryBasket(
     });
 
     if (!request.ok) {
-      throw new Error("Network response was not ok");
+      console.error("Failed to deposit to Symmetry Basket");
+      return null;
     }
 
     let response: SymmetryTxn = (await request.json()) as SymmetryTxn;
