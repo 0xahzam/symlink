@@ -2,11 +2,11 @@ import { ActionGetResponse } from "@solana/actions";
 
 export const getDepositAction = (): ActionGetResponse => {
   const icon =
-    "https://docs.symmetry.fi/~gitbook/image?url=https%3A%2F%2F3691622348-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FFDffzwxToFrOmEMnt9Pr%252Ficon%252FXzMnubd1k86Jo5xSrgdg%252Fasmf.png%3Falt%3Dmedia%26token%3D6f9159cf-e663-43dc-bdc3-1236d3b4f535&width=32&dpr=2&quality=100&sign=bd9b4298&sv=1";
+    "https://image.lexica.art/full_webp/137513ea-76f3-4222-97e2-c323f70619e8";
   const label = "Deposit";
-  const title = "Deposit to Symmetry Basket";
+  const title = "Earn upto 21% APY on symmetry.fi 🐳";
   const description =
-    "Deposit funds into a Symmetry basket. Choose a preset amount or enter a custom amount.";
+    "Beyond LST is a basket that contains top performing validator LSTs with highest yield";
   const disabled = false;
   const amountQuery = "amount";
 

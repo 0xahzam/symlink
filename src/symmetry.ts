@@ -39,6 +39,8 @@ export async function depositToSymmetryBasket(
 
     let response: SymmetryTxn = (await request.json()) as SymmetryTxn;
 
+    if (!response.success) return null;
+
     const actionResponse: ActionPostResponse = {
       transaction: response.transaction,
       message: "Successfully deposited in basket",
