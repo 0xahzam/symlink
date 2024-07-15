@@ -1,3 +1,4 @@
+import { ActionPostResponse } from "@solana/actions";
 import { PublicKey } from "@solana/web3.js";
 
 interface SymmetryTxn {
@@ -9,7 +10,7 @@ export async function depositToSymmetryBasket(
   publicKeyString: string,
   basket: string,
   amount: number
-): Promise<string | null> {
+): Promise<ActionPostResponse | null> {
   try {
     const publicKey = new PublicKey(publicKeyString);
     const onCurve = PublicKey.isOnCurve(publicKey);
@@ -37,7 +38,13 @@ export async function depositToSymmetryBasket(
     }
 
     let response: SymmetryTxn = (await request.json()) as SymmetryTxn;
-    return response.transaction;
+
+    const actionResponse: ActionPostResponse = {
+      transaction: response.transaction,
+      message: "Successfully deposited in basket",
+    };
+
+    return actionResponse;
   } catch (error) {
     console.error("Failed to deposit to Symmetry Basket:", error);
     return null;

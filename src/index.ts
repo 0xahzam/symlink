@@ -27,25 +27,21 @@ app.post("/deposit", async (c) => {
   try {
     const { account, amount } = await c.req.json();
 
-    const basket = "4RofqKG4d6jfUD2HjtWb2F9UkLJvJ7P3kFmyuhX7H88d";
-
     if (account === undefined) {
       console.log(await c.req.json());
       return c.json({ error: "Missing required parameters" }, 400);
     }
-
     const depositAmount = amount !== undefined ? amount : 1;
 
+    const basket = "4RofqKG4d6jfUD2HjtWb2F9UkLJvJ7P3kFmyuhX7H88d";
     const transaction = await depositToSymmetryBasket(
       account,
       basket,
       depositAmount
     );
-
     if (transaction === null) {
       return c.json({ error: "Failed to generate transaction" }, 500);
     }
-
     return c.json({ transaction });
   } catch (error) {
     console.error("Error processing deposit request:", error);
