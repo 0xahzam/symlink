@@ -1,5 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import { SymmetryTxn } from "./types";
+import { Hono } from "hono";
 
 async function depositToSymmetryBasket(
   publicKeyString: string,
@@ -32,15 +33,31 @@ async function depositToSymmetryBasket(
   }
 }
 
-(async () => {
-  const publicKeyString = "2FJZ49vWsN3LE3tmNsd14DmtSmxNtsr32vsrgKBUv77p";
-  const basket = "4RofqKG4d6jfUD2HjtWb2F9UkLJvJ7P3kFmyuhX7H88d";
-  const amount = 1;
+const app = new Hono();
 
-  const result = await depositToSymmetryBasket(publicKeyString, basket, amount);
-  if (result !== null) {
-    console.log("Deposit successful:", result);
-  } else {
-    console.log("Deposit failed");
+app.post("/", async (c) => {
+  try {
+    const { publicKey, basket, amount } = await c.req.json();
+
+    if (!publicKey || !basket || amount === undefined) {
+      return c.json({ error: "Missing required parameters" }, 400);
+    }
+
+    const transaction = await depositToSymmetryBasket(
+      publicKey,
+      basket,
+      amount
+    );
+
+    if (transaction === null) {
+      return c.json({ error: "Failed to generate transaction" }, 500);
+    }
+
+    return c.json({ transaction });
+  } catch (error) {
+    console.error("Error processing deposit request:", error);
+    return c.json({ error: "Internal server error" }, 500);
   }
-})();
+});
+
+export default app;
