@@ -45,7 +45,6 @@ app.post("/deposit", async (c) => {
       return c.json({ error: "Failed to generate transaction" }, 500);
     }
 
-    console.log(transaction);
     return c.json(transaction);
   } catch (error) {
     console.error("Error processing deposit request:", error);

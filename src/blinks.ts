@@ -25,12 +25,12 @@ export const getDepositAction = (): ActionGetResponse => {
         href: `/deposit?${amountQuery}=1000`,
       },
       {
-        label: "Custom Deposit",
+        label: "Deposit",
         href: `/deposit?${amountQuery}={${amountQuery}}`,
         parameters: [
           {
             name: amountQuery,
-            label: "Enter a deposit amount in USD",
+            label: "Enter amount",
           },
         ],
       },
