@@ -6,9 +6,8 @@ interface SymmetryTxn {
   transaction: string;
 }
 
-export async function depositToSymmetryBasket(
+export async function depositToBeyondLstBasket(
   publicKeyString: string,
-  basket: string,
   amount: number
 ): Promise<ActionPostResponse | null> {
   try {
@@ -20,13 +19,17 @@ export async function depositToSymmetryBasket(
       return null;
     }
 
+    const lstBasket = "5GPvpZ9Jga9JoZ5eVQms9hQARwexmCjuqDaTxF6LMdsF";
+    const sol = "So11111111111111111111111111111111111111112";
+
     const depositParameters = {
       user: publicKey.toBase58(),
-      basket: basket,
+      basket: lstBasket,
+      tokenMint: sol,
       amount: amount,
     };
 
-    const request = await fetch("https://api.symmetry.fi/baskets/deposit", {
+    let request = await fetch("https://api.symmetry.fi/baskets/mint", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(depositParameters),

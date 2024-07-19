@@ -13,16 +13,16 @@ export const getDepositAction = (): ActionGetResponse => {
   const links: ActionGetResponse["links"] = {
     actions: [
       {
-        label: "$10",
-        href: `/deposit?amount=10`,
+        label: "0.1 SOL",
+        href: `/deposit?amount=0.1`,
       },
       {
-        label: "$100",
-        href: `/deposit?amount=100`,
+        label: "0.5 SOL",
+        href: `/deposit?amount=0.5`,
       },
       {
-        label: "$1,000",
-        href: `/deposit?amount=1000`,
+        label: "$1 SOL",
+        href: `/deposit?amount=1`,
       },
       {
         label: "Deposit",
@@ -30,7 +30,7 @@ export const getDepositAction = (): ActionGetResponse => {
         parameters: [
           {
             name: amountQuery,
-            label: "Enter amount",
+            label: "Enter amount (in SOL)",
           },
         ],
       },
